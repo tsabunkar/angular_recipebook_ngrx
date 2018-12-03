@@ -62,7 +62,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
 export class ShoppingListComponent implements OnInit, OnDestroy {
 
-  private mysubscription: Subscription;
+  // private mysubscription: Subscription;
   // ingredientsArray: Ingredient[] = [];
   // * making the ingredientsArray as Observable whose type is Ingredient[]
   ingredientsArray: Observable<{ ingredientsArray_Redux: Ingredient[] }>;
@@ -110,7 +110,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Called once, before the instance is destroyed.
     // Add 'implements OnDestroy' to the class.
-    this.mysubscription.unsubscribe(); // this will prevent any memory leak, whil creating own subject/observable
+    // this.mysubscription.unsubscribe(); // this will prevent any memory leak, whil creating own subject/observable
   }
 
   onEditItem(index: number) {

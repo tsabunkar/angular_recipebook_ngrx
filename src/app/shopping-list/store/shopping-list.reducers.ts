@@ -1,9 +1,6 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { Ingredient } from '../../shared/models/ingredient.model';
-import * as ShoppingListAction from './shopping-list.actions';
-
-
-export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+import * as shoppingListActions from './shopping-list.actions';
 
 const initalState = {
     ingredientsArray_Redux: [
@@ -13,16 +10,16 @@ const initalState = {
 };
 
 // export function shoppingListReducer(state = initalState, action: Action) {
-export function shoppingListReducer(state = initalState, action: ShoppingListAction.ShoppingListActions) {
+export function shoppingListReducer(state = initalState, action: shoppingListActions.ShoppingListActions) {
     // This is reducer function which will takes two argum, action
     // and state (current state of the application passed by angular but we can pass the initalState)
     // this rducer function will be triggered, whenever a action is dispatched
     // this reducer function will return update the state of our appln
     switch (action.type) {
         // case ADD_INGREDIENT: // case should be of string typeof
-        case ShoppingListAction.ADD_INGREDIENT: // case should be of string typeof
+        case shoppingListActions.ADD_INGREDIENT: // case should be of string typeof
             return { // returns object (bcoz reducers return s immutable object)
-                ...state, // ...state -> spread operator, which means add old state with the new state
+                ...state, // ...state -> spread operator, which means add all the old state property into this object
                 ingredients: [...state.ingredientsArray_Redux, action.payload]
             };
 
