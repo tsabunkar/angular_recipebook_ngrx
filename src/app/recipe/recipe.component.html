@@ -1,0 +1,47 @@
+<!-- <div class="row">
+  <div class="col-md-5"> -->
+
+<!-- <app-recipe-list (selectedRecipeForDetailDescriptionFrmC2P_customEvent)="detailedRecipeELementRxedAtParent($event)"></app-recipe-list> -->
+<!-- 
+    <app-recipe-list></app-recipe-list>
+  </div>
+  <div class="col-md-7">
+    <app-recipe-details [detailededRecipeFromP2C]="detailedRecipeElementSend2Child"></app-recipe-details>
+  </div>
+</div> -->
+
+
+<!-- ################### 2nd way of doing above logic #################################### -->
+
+<!-- 
+for custome click event selectedRecipeForDetailDescriptionFrmC2P_customEvent, instead of defining the function
+detailedRecipeELementRxedAtParent() we r directly assiging the $event object value to
+property -> detailedRecipeELementRxedAtParentProperty as shown below
+ -->
+
+<!-- <div class="row">
+  <div class="col-md-5">
+
+    <app-recipe-list (selectedRecipeForDetailDescriptionFrmC2P_customEvent)="detailedRecipeELementRxedAtParentProperty = $event">
+
+      ></app-recipe-list>
+  </div>
+  <div class="col-md-7">
+
+    <app-recipe-details [detailededRecipeFromP2C]="detailedRecipeELementRxedAtParentProperty"></app-recipe-details>
+  </div>
+</div> -->
+
+
+<!-- ########################################################################################## -->
+
+
+<div class="row">
+  <div class="col-md-5">
+
+    <app-recipe-list></app-recipe-list>
+  </div>
+  <div class="col-md-7">
+    <router-outlet></router-outlet>
+  </div>
+</div>

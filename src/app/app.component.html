@@ -1,0 +1,11 @@
+<!-- <app-header (customeChild_ClickedEvent)="onClickOfHeaderEvent($event)"></app-header> -->
+<app-header></app-header>
+<div class="container">
+  <div class="col-md-12">
+    <!--     <app-recipe *ngIf="shouldShowRecipesTab === 'show_recipe' "></app-recipe>
+    <app-shopping-list *ngIf="shouldShowRecipesTab === 'show_shopping' "></app-shopping-list> -->
+    <router-outlet></router-outlet>
+
+  </div>
+</div>
+<app-footer></app-footer>

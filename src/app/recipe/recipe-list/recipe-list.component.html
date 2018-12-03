@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewRecipe()">New Recipe</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+
+    <!--     <app-recipe-item 
+    *ngFor="let singleRecipe of recipesArray"
+     [singleRecipeItemPropBindingfromParnt2Child]="singleRecipe"
+      (recipeSelectedFromRecipeItem_customEvent_FrmC2P)="onClickOfSingleRecipeItem(singleRecipe)">
+    </app-recipe-item> -->
+    <!--  <app-recipe-item 
+    *ngFor="let singleRecipe of recipesArray"
+     [singleRecipeItemPropBindingfromParnt2Child]="singleRecipe"
+      >
+    </app-recipe-item> -->
+    <!-- 
+      [singleRecipeItemPropBindingfromParnt2Child]="singleRecipe"  -> Passing inform from
+       Parent Comp (RecipeListComponent) to child comp (RecipeItemComponent) 
+      -->
+
+    <app-recipe-item *ngFor="let singleRecipe of recipesArray; let i=index" [routerLink]="['/recipes', i]"
+    routerLinkActive="active"
+    [singleRecipeItemPropBindingfromParnt2Child]="singleRecipe"  >
+    </app-recipe-item>
+  </div>
+</div>
