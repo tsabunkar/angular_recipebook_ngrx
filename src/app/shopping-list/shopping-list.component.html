@@ -14,7 +14,8 @@
 
       <!-- Using Redux pattern (ngRx) -->
 
-      <a class="list-group-item" style="cursor: pointer" *ngFor="let ingredient of (ingredientsArray | async).ingredientsArray_Redux;let i = index"
+      <a class="list-group-item" style="cursor: pointer" 
+      *ngFor="let ingredient of (ingredientsArray | async).ingredientsArraySliceOfState;let i = index"
         (click)="onEditItem(i)">
         Product Name : {{ingredient?.name}} <br />
         Product Cost : {{ingredient?.amount}}

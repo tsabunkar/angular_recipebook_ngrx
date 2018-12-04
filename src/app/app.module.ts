@@ -34,8 +34,9 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     ShoppingListModule,
     AuthModule,
     CoreModule,
-    // * registring the ngrx, it is used for eagerly loading module
-    StoreModule.forRoot({ customShoppingListReducer: shoppingListReducer })
+    // * registring the Application store, it is used for eagerly loading module
+    StoreModule.forRoot({ shoppingListSlice: shoppingListReducer }) // global slice of state
+    // StoreModule.forRoot(shoppingListReducer)
   ],
   providers: [
     /*   ShoppingListService, RecipeService, RecipeStorageBackendService,

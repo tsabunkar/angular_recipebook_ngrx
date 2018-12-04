@@ -21,16 +21,16 @@ export class ShoppingListService {
     /*   getIngredients() : Ingredient[] {
           return this.ingredients; //remove slice()
       } */
-    getIngredients(): Ingredient[] {
+/*     getIngredients(): Ingredient[] {
         return this.ingredients.slice();
-    }
+    } */
 
-    addIngredientsElementsToArray(ingredientElement: Ingredient): void {
+ /*    addIngredientsElementsToArray(ingredientElement: Ingredient): void {
         this.ingredients.push(ingredientElement);
         // emitting a event, and telling other components that ingredient element has been added to array
         // this.ingredientElementAddedToIngredientArray_CustomEvent.emit(this.ingredients.slice())
         this.ingredientElementAddedToIngredientArray_CustomSubject.next(this.ingredients.slice());
-    }
+    } */
 
     addIngredientsArrayToExistingIngredientArrayInShoppingList(ingredientsArra: Ingredient[]) {
         //    for (const ingred of ingredientsArra) {

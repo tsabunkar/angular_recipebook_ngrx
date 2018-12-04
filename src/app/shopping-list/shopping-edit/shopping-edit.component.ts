@@ -3,7 +3,8 @@ import { Ingredient } from '../../shared/models/ingredient.model';
 import { ShoppingListService } from '../shopping-service/shopping.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
+import { Store } from '@ngrx/store';
+import * as shoppingListAction from '../store/shopping-list.actions';
 @Component({
   selector: 'app-shopping-edit',
   templateUrl: './shopping-edit.component.html',
@@ -17,7 +18,9 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editedItemIndex: number;
   ingredientItemEdited: Ingredient;
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private shoppingListService: ShoppingListService,
+    private store: Store<{ shoppingListSlice: { ingredientsArraySliceOfState: Ingredient[] } }>
+  ) { }
 
 
   ngOnInit() {
@@ -33,39 +36,16 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
       });
   }
 
-  /*   @ViewChild('nameInput') nameVara: ElementRef;
-    @ViewChild('amountInput') amountVara: ElementRef; */
-
-  /*
-    @Output('sendIngredientObjFrmC2P_customEvent') ingredientObj = new EventEmitter<Ingredient>();
-
-    onAddInShoppingCart() {
-      // console.log(this.nameVara.nativeElement.value);
-      // console.log(this.amountVara.nativeElement.value);
-      const ingredientName =  this.nameVara.nativeElement.value
-      const ingredientAmount =  this.amountVara.nativeElement.value
-      const newIngredient = new Ingredient(ingredientName, ingredientAmount);
-      this.ingredientObj.emit(newIngredient)
-
-    }
-    */
-
-  // !using subject instead of emitting customEvent
-  /*   onAddInShoppingCart() {
-      const ingredientName = this.nameVara.nativeElement.value
-      const ingredientAmount = this.amountVara.nativeElement.value
-      const newIngredient = new Ingredient(ingredientName, ingredientAmount);
-      this.shoppingListService.addIngredientsElementsToArray(newIngredient)
-    } */
 
   onAddEditShoppingItem(ngFormVal: NgForm) {
-    console.log(ngFormVal);
     const formValue = ngFormVal.value;
     const newIngredient = new Ingredient(formValue.nameControl, formValue.amountControl);
     if (this.isEditMode) {
       this.shoppingListService.updateExisitingIngredient(this.editedItemIndex, newIngredient);
     } else {
-      this.shoppingListService.addIngredientsElementsToArray(newIngredient);
+      console.log('add mode', newIngredient);
+      // this.shoppingListService.addIngredientsElementsToArray(newIngredient);
+      this.store.dispatch(new shoppingListAction.AddIngredientAction(newIngredient));
     }
     // need to reset the form
     ngFormVal.reset();
