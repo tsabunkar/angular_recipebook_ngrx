@@ -32,7 +32,8 @@ export class ShoppingListService {
         this.ingredientElementAddedToIngredientArray_CustomSubject.next(this.ingredients.slice());
     } */
 
-    addIngredientsArrayToExistingIngredientArrayInShoppingList(ingredientsArra: Ingredient[]) {
+
+   /*  addIngredientsArrayToExistingIngredientArrayInShoppingList(ingredientsArra: Ingredient[]) {
         //    for (const ingred of ingredientsArra) {
         //        this.addIngredientsElementsToArray(ingred)
         //    }
@@ -44,7 +45,7 @@ export class ShoppingListService {
         // this.ingredientElementAddedToIngredientArray_CustomEvent.emit(this.ingredients.slice())
         this.ingredientElementAddedToIngredientArray_CustomSubject.next(this.ingredients.slice());
 
-    }
+    } */
 
     getIngredientItemFromIndex(index: number) {
         return this.ingredients[index];

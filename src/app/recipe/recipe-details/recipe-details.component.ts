@@ -1,8 +1,10 @@
+import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from '../models/recipe.model';
 import { RecipeService } from '../recipe-service/recipe.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { Store } from '@ngrx/store';
+import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
 @Component({
   selector: 'app-recipe-details',
   templateUrl: './recipe-details.component.html',
@@ -10,8 +12,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class RecipeDetailsComponent implements OnInit {
 
-  constructor(private recipeService: RecipeService, private activatedRoute: ActivatedRoute
-    , private router: Router) { }
+  constructor(private recipeService: RecipeService, private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private store: Store<{ shoppingListSlice: { ingredientsArraySliceOfState: Ingredient[] } }>
+  ) { }
 
 
   recipeObj: Recipe;
@@ -20,8 +24,8 @@ export class RecipeDetailsComponent implements OnInit {
   // @Input('detailededRecipeFromP2C') recipeObj: Recipe;
 
   onClickOfAddIngredientToShoppingList() {
-    this.recipeService.addIngredientToShoppingList(this.recipeObj.ingredients);
-    // ingredients -> is an array of ingredient elements
+    // this.recipeService.addIngredientToShoppingList(this.recipeObj.ingredients);
+    this.store.dispatch(new ShoppingListActions.AddIngredientsAction(this.recipeObj.ingredients));
   }
 
 

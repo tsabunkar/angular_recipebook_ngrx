@@ -23,6 +23,33 @@ export function shoppingListReducer(state = initalState, action: shoppingListAct
                 ...state, // ...state -> spread operator, which means add all the old state property into this object
                 ingredientsArraySliceOfState: [...state.ingredientsArraySliceOfState, action.payload]
             };
+        case shoppingListActions.ShoppingListActionTypes.ADD_INGREDIENTS:
+            return {
+                ...state, // get all the previous property of state
+                ingredientsArraySliceOfState: [...state.ingredientsArraySliceOfState, ...action.payload]
+                // override this property ingredientsArraySliceOfState with new value given in the RHS
+            };
+        case shoppingListActions.ShoppingListActionTypes.UPDATE_INGREDIENT:
+
+            const ingredientToUpdate = state.ingredientsArraySliceOfState[action.payload.index];
+            const updatedIngredient = {
+                ...ingredientToUpdate, // all properties of old ingredient obj (ingredient to update)
+                ...action.payload.newIngredient // all properties of new ingredient object(newIngredient), this which will override all
+                // the properties of the old ingredient obj
+            };
+            const ingredientsArrayWithUpdatedIngredient = [...state.ingredientsArraySliceOfState];
+            ingredientsArrayWithUpdatedIngredient[action.payload.index] = updatedIngredient;
+            return {
+                ...state, // get all the previous property of state
+                ingredientsArraySliceOfState: ingredientsArrayWithUpdatedIngredient
+            };
+        case shoppingListActions.ShoppingListActionTypes.DELETE_INGREDIENT:
+            const ingredientsArray = [...state.ingredientsArraySliceOfState];
+            ingredientsArray.splice(action.payload, 1);
+            return {
+                ...state, // get all the previous property of state
+                ingredientsArraySliceOfState: ingredientsArray
+            };
 
         default:
             return state;
