@@ -39,6 +39,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
          });
        });
   */
+    // ! instead of using subjects subsribe using select of NgRx
     this.mysubscription = this.store.pipe(
       select('shoppingListSlice')  // global slice of state which was set in AppModule -> StoreModule.forRoot
     )
@@ -98,5 +99,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     // Called once, before the instance is destroyed.
     // Add 'implements OnDestroy' to the class.
     this.mysubscription.unsubscribe();
+
+    this.store.dispatch(new shoppingListAction.StopEditIngredientAction()); // reseting the property values
   }
 }

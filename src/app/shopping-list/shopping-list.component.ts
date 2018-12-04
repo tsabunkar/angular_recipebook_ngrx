@@ -41,6 +41,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   onEditItem(index: number) {
     // this.shoppingListService.startedEditingShoppingItem_CustomSubject.next(index);
+    // ! instead of using subjects next using dispatch of NgRx
     this.store.dispatch(new ShoppingListActions.StartEditIngredientAction(index));
   }
 }

@@ -8,15 +8,15 @@ export class ShoppingListService {
     // we need to tell the browser/Page that new ingredient element is added to ingredients Array
     // ingredientElementAddedToIngredientArray_CustomEvent = new EventEmitter<Ingredient[]>();
     // !using subject instead of emitting customEvent
-    ingredientElementAddedToIngredientArray_CustomSubject = new Subject<Ingredient[]>();
+   /*  ingredientElementAddedToIngredientArray_CustomSubject = new Subject<Ingredient[]>();
     startedEditingShoppingItem_CustomSubject = new Subject<number>();
-
+ */
     constructor() { }
 
-    private ingredients: Ingredient[] = [
+  /*   private ingredients: Ingredient[] = [
         new Ingredient('Laptop', 100000),
         new Ingredient('Keyboard', 999)
-    ];
+    ]; */
 
     /*   getIngredients() : Ingredient[] {
           return this.ingredients; //remove slice()
@@ -47,7 +47,7 @@ export class ShoppingListService {
 
     } */
 
-    getIngredientItemFromIndex(index: number) {
+   /*  getIngredientItemFromIndex(index: number) {
         return this.ingredients[index];
     }
 
@@ -59,5 +59,7 @@ export class ShoppingListService {
     deleteIngredientItemFromArray(index: number) {
         this.ingredients.splice(index, 1);
         this.ingredientElementAddedToIngredientArray_CustomSubject.next(this.ingredients.slice());
-    }
+    } */
+
+    // !this service is completely managed by NgRx, so we can delete this file
 }

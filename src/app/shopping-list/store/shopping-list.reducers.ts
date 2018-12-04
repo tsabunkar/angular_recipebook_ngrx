@@ -54,22 +54,32 @@ export function shoppingListReducer(state = initalState, action: shoppingListAct
             ingredientsArrayWithUpdatedIngredient[state.editedIngredientIndexSliceOfState] = updatedIngredient;
             return {
                 ...state, // get all the previous property of state
-                ingredientsArraySliceOfState: ingredientsArrayWithUpdatedIngredient
+                ingredientsArraySliceOfState: ingredientsArrayWithUpdatedIngredient,
+                editedIngredientSliceOfState: null,
+                editedIngredientIndexSliceOfState: -1,
             };
         case shoppingListActions.ShoppingListActionTypes.DELETE_INGREDIENT:
             const ingredientsArray = [...state.ingredientsArraySliceOfState];
             ingredientsArray.splice(state.editedIngredientIndexSliceOfState, 1);
             return {
                 ...state, // get all the previous property of state
-                ingredientsArraySliceOfState: ingredientsArray
+                ingredientsArraySliceOfState: ingredientsArray,
+                editedIngredientSliceOfState: null,
+                editedIngredientIndexSliceOfState: -1,
             };
 
-        case shoppingListActions.ShoppingListActionTypes.START_EDIT:
+        case shoppingListActions.ShoppingListActionTypes.START_EDITING_INGREDIENT:
             const editedIngredient = { ...state.ingredientsArraySliceOfState[action.payload] };
             return {
                 ...state, // get all the previous property of state
                 editedIngredientSliceOfState: editedIngredient,
                 editedIngredientIndexSliceOfState: action.payload
+            };
+        case shoppingListActions.ShoppingListActionTypes.STOP_EDITING_INGREDIENT:
+            return {
+                ...state, // get all the previous property of state
+                editedIngredientSliceOfState: null, // reseting this property value
+                editedIngredientIndexSliceOfState: -1, // reseting this property value
             };
 
         default:
