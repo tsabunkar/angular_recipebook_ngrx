@@ -12,7 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { StoreModule } from '@ngrx/store';
 import { shoppingListReducer } from './shopping-list/store/shopping-list.reducers';
-
+import { authReducer } from './auth/store/auth.reducers';
 
 @NgModule({
   declarations: [
@@ -35,8 +35,9 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     AuthModule,
     CoreModule,
     // * registring the Application store, it is used for eagerly loading module
-    StoreModule.forRoot({ shoppingListSlice: shoppingListReducer }) // global slice of state
+    StoreModule.forRoot({ shoppingListSlice: shoppingListReducer }), // global slice of state
     // StoreModule.forRoot(shoppingListReducer)
+
   ],
   providers: [
     /*   ShoppingListService, RecipeService, RecipeStorageBackendService,

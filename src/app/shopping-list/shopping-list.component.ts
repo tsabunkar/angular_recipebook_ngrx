@@ -3,8 +3,8 @@ import { Ingredient } from '../shared/models/ingredient.model';
 import { ShoppingListService } from './shopping-service/shopping.service';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromShoppingListReducer from './store/shopping-list.reducers';
 import * as ShoppingListActions from './store/shopping-list.actions';
+import * as fromApp from '../store/app.reducers';
 
 @Component({
   selector: 'app-shopping-list',
@@ -19,8 +19,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   // * making the ingredientsArray as Observable whose type is Ingredient[]
   ingredientsArray: Observable<{ ingredientsArraySliceOfState: Ingredient[] }>;
 
-  constructor(private shoppingListService: ShoppingListService,
-    private store: Store<fromShoppingListReducer.ApplicationState>
+  constructor(
+    // private shoppingListService: ShoppingListService,
+    // private store: Store<fromShoppingListReducer.ApplicationState>
+    private store: Store<fromApp.AppState>
   ) { }
 
   // !using subject instead of emitting customEvent
