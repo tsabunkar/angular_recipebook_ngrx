@@ -3,6 +3,8 @@ import { Ingredient } from '../shared/models/ingredient.model';
 import { ShoppingListService } from './shopping-service/shopping.service';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import * as fromShoppingListReducer from './store/shopping-list.reducers';
+import * as ShoppingListActions from './store/shopping-list.actions';
 
 @Component({
   selector: 'app-shopping-list',
@@ -18,7 +20,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredientsArray: Observable<{ ingredientsArraySliceOfState: Ingredient[] }>;
 
   constructor(private shoppingListService: ShoppingListService,
-    private store: Store<{ shoppingListSlice: { ingredientsArraySliceOfState: Ingredient[] } }>
+    private store: Store<fromShoppingListReducer.ApplicationState>
   ) { }
 
   // !using subject instead of emitting customEvent
@@ -28,7 +30,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     // ! native way of maintaing the state
     // this.ingredientsArray = this.shoppingListService.getIngredients();
     // ! Using Reducer concepts to maintaining the state
-    this.ingredientsArray = this.store.select('shoppingListSlice'); // global slice of state
+    this.ingredientsArray = this.store.select('shoppingListSlice');
+    // global slice of state which was set in AppModule -> StoreModule.forRoot
   }
 
   // *unsubscribing the custom created subject or Observable
@@ -37,7 +40,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   onEditItem(index: number) {
-    this.shoppingListService.startedEditingShoppingItem_CustomSubject.next(index);
+    // this.shoppingListService.startedEditingShoppingItem_CustomSubject.next(index);
+    this.store.dispatch(new ShoppingListActions.StartEditIngredientAction(index));
   }
 }
 

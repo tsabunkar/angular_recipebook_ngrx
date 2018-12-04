@@ -2,12 +2,25 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { Ingredient } from '../../shared/models/ingredient.model';
 import * as shoppingListActions from './shopping-list.actions';
 
-const initalState = {
+
+export interface ApplicationState {
+    shoppingListSliceOfState: ShoppingListState;
+}
+export interface ShoppingListState {
+    ingredientsArraySliceOfState: Ingredient[];
+    editedIngredientSliceOfState: Ingredient;
+    editedIngredientIndexSliceOfState: number;
+}
+
+const initalState: ShoppingListState = {
     ingredientsArraySliceOfState: [
         new Ingredient('Apples', 5),
         new Ingredient('Tomatoes', 10)
-    ]
+    ],
+    editedIngredientSliceOfState: null,
+    editedIngredientIndexSliceOfState: -1,
 };
+
 
 // export function shoppingListReducer(state = initalState, action: Action) {
 export function shoppingListReducer(state = initalState, action: shoppingListActions.ShoppingListActions) {
@@ -31,24 +44,32 @@ export function shoppingListReducer(state = initalState, action: shoppingListAct
             };
         case shoppingListActions.ShoppingListActionTypes.UPDATE_INGREDIENT:
 
-            const ingredientToUpdate = state.ingredientsArraySliceOfState[action.payload.index];
+            const ingredientToUpdate = state.ingredientsArraySliceOfState[state.editedIngredientIndexSliceOfState];
             const updatedIngredient = {
                 ...ingredientToUpdate, // all properties of old ingredient obj (ingredient to update)
                 ...action.payload.newIngredient // all properties of new ingredient object(newIngredient), this which will override all
                 // the properties of the old ingredient obj
             };
             const ingredientsArrayWithUpdatedIngredient = [...state.ingredientsArraySliceOfState];
-            ingredientsArrayWithUpdatedIngredient[action.payload.index] = updatedIngredient;
+            ingredientsArrayWithUpdatedIngredient[state.editedIngredientIndexSliceOfState] = updatedIngredient;
             return {
                 ...state, // get all the previous property of state
                 ingredientsArraySliceOfState: ingredientsArrayWithUpdatedIngredient
             };
         case shoppingListActions.ShoppingListActionTypes.DELETE_INGREDIENT:
             const ingredientsArray = [...state.ingredientsArraySliceOfState];
-            ingredientsArray.splice(action.payload, 1);
+            ingredientsArray.splice(state.editedIngredientIndexSliceOfState, 1);
             return {
                 ...state, // get all the previous property of state
                 ingredientsArraySliceOfState: ingredientsArray
+            };
+
+        case shoppingListActions.ShoppingListActionTypes.START_EDIT:
+            const editedIngredient = { ...state.ingredientsArraySliceOfState[action.payload] };
+            return {
+                ...state, // get all the previous property of state
+                editedIngredientSliceOfState: editedIngredient,
+                editedIngredientIndexSliceOfState: action.payload
             };
 
         default:
