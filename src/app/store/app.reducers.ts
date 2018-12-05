@@ -1,22 +1,23 @@
 // !Global Application wide Reducer function which is used throught the application
 // !Here we bundle all other States (all other moduels state)
 
-
-import * as fromShoppingList from '../shopping-list/store/shopping-list.reducers';
-import * as fromAuth from '../auth/store/auth.reducers';
 import { ActionReducerMap } from '@ngrx/store';
+
+import * as fromShoppingListReducer from '../shopping-list/store/shopping-list.reducers';
+import * as fromAuthReducer from '../auth/store/auth.reducers';
+
 
 // !Application wide State
 export interface AppState {
     // shoppingList: fromShoppingList.ApplicationState;
-    shoppingListSliceOfState: fromShoppingList.ApplicationState;
-    auth: fromAuth.AuthState;
+    shoppingListSlice: fromShoppingListReducer.ShoppingListState;
+    authSlice: fromAuthReducer.AuthState;
 }
 
-/*
+
 // !Application wide Reducers
-export const AppReducers: ActionReducerMap<AppState> = {
-    shoppingListSlice: fromShoppingList.shoppingListReducer,
-    authenticationSlice: fromAuth.authReducer
-}; */
+export const applicationReducers: ActionReducerMap<AppState> = { // ActionReducerMap is used to map all the reducers
+    shoppingListSlice: fromShoppingListReducer.shoppingListReducer,
+    authSlice: fromAuthReducer.authReducer
+};
 

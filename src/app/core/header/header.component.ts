@@ -2,6 +2,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { RecipeStorageBackendService } from 'src/app/shared/server-services/recipe-storage.service';
 import { AuthService } from 'src/app/auth/auth-service/auth-service.service';
 import { Recipe } from 'src/app/recipe/models/recipe.model';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import * as fromApp from '../../store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
+
 
 
 @Component({
@@ -10,23 +16,24 @@ import { Recipe } from 'src/app/recipe/models/recipe.model';
 })
 
 export class HeaderComponent implements OnInit {
+
+    authState$: Observable<boolean>;
+
     constructor(private recipeStorageBackendService: RecipeStorageBackendService,
-        private authService: AuthService
+        private authService: AuthService,
+        private store: Store<fromAuth.AuthState>
     ) { }
 
-    ngOnInit() { }
-    /*     @Output() customeChild_ClickedEvent = new EventEmitter<string>();
-
-        OnClickOfTab(myVara: string) {
-            this.customeChild_ClickedEvent.emit(myVara);
-        } */
+    ngOnInit() {
+        this.authState$ = this.store.pipe(select('authSlice'));
+        // console.log(this.authState$);
+    }
 
     onSaveData() {
         this.recipeStorageBackendService.storeRecipe()
             .subscribe(
                 (respData) => {
-                    console.log('---subscriber----');
-                    console.log(respData);
+
                 },
                 (err) => {
                     console.log(err);
@@ -43,9 +50,9 @@ export class HeaderComponent implements OnInit {
         this.authService.logOut();
     }
 
-    isUserAuthenticated() { // this is to resolve --aot errors
+ /*    isUserAuthenticated() { // this is to resolve --aot errors
         return this.authService.isUserAuthenticated();
     }
-
+ */
 
 }

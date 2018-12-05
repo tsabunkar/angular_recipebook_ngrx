@@ -4,9 +4,8 @@ import { ShoppingListService } from '../shopping-service/shopping.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import * as shoppingListAction from '../store/shopping-list.actions';
-import * as fromShoppingListReducer from '../store/shopping-list.reducers';
-import * as fromApp from '../../store/app.reducers';
+import * as shoppingListActions from '../store/shopping-list.actions';
+import * as fromAppReducer from '../../store/app.reducers';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -24,7 +23,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   constructor(
     // private shoppingListService: ShoppingListService,
     // private store: Store<fromShoppingListReducer.ApplicationState>
-    private store: Store<fromApp.AppState>
+    private store: Store<fromAppReducer.AppState>
   ) { }
 
 
@@ -72,10 +71,10 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
         newIngredient: newIngredient
       };
 
-      this.store.dispatch(new shoppingListAction.UpdateIngredientAction(payload));
+      this.store.dispatch(new shoppingListActions.UpdateIngredientAction(payload));
     } else {
       // this.shoppingListService.addIngredientsElementsToArray(newIngredient);
-      this.store.dispatch(new shoppingListAction.AddIngredientAction(newIngredient));
+      this.store.dispatch(new shoppingListActions.AddIngredientAction(newIngredient));
     }
     // need to reset the form
     ngFormVal.reset();
@@ -90,7 +89,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onDeleteOfIngredient() {
     // this.shoppingListService.deleteIngredientItemFromArray(this.editedItemIndex);
-    this.store.dispatch(new shoppingListAction.DeleteIngredientAction());
+    this.store.dispatch(new shoppingListActions.DeleteIngredientAction());
     this.onClear();
   }
 
@@ -101,6 +100,6 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     // Add 'implements OnDestroy' to the class.
     this.mysubscription.unsubscribe();
 
-    this.store.dispatch(new shoppingListAction.StopEditIngredientAction()); // reseting the property values
+    this.store.dispatch(new shoppingListActions.StopEditIngredientAction()); // reseting the property values
   }
 }

@@ -23,7 +23,7 @@ const initalState: ShoppingListState = {
 
 
 // export function shoppingListReducer(state = initalState, action: Action) {
-export function shoppingListReducer(state = initalState, action: shoppingListActions.ShoppingListActions) {
+export function shoppingListReducer(state = initalState, action: shoppingListActions.ShoppingListActions): ShoppingListState {
     // This is reducer function which will takes two argum, action
     // and state (current state of the application passed by angular but we can pass the initalState)
     // this rducer function will be triggered, whenever a action is dispatched

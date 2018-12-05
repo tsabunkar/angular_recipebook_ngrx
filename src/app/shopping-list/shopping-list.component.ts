@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Ingredient } from '../shared/models/ingredient.model';
 import { ShoppingListService } from './shopping-service/shopping.service';
 import { Subscription, Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import * as ShoppingListActions from './store/shopping-list.actions';
-import * as fromApp from '../store/app.reducers';
+import { Store, select } from '@ngrx/store';
+import * as shoppingListActions from './store/shopping-list.actions';
+import * as fromAppReducer from '../store/app.reducers';
 
 @Component({
   selector: 'app-shopping-list',
@@ -16,13 +16,13 @@ import * as fromApp from '../store/app.reducers';
 
 export class ShoppingListComponent implements OnInit, OnDestroy {
 
-  // * making the ingredientsArray as Observable whose type is Ingredient[]
-  ingredientsArray: Observable<{ ingredientsArraySliceOfState: Ingredient[] }>;
+  // * making the ingredientsArrayState$ as Observable whose type is Ingredient[]
+  ingredientsArrayState$: Observable<{ ingredientsArraySliceOfState: Ingredient[] }>;
 
   constructor(
     // private shoppingListService: ShoppingListService,
     // private store: Store<fromShoppingListReducer.ApplicationState>
-    private store: Store<fromApp.AppState>
+    private store: Store<fromAppReducer.AppState>
   ) { }
 
   // !using subject instead of emitting customEvent
@@ -32,7 +32,9 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     // ! native way of maintaing the state
     // this.ingredientsArray = this.shoppingListService.getIngredients();
     // ! Using Reducer concepts to maintaining the state
-    this.ingredientsArray = this.store.select('shoppingListSlice');
+    this.ingredientsArrayState$ = this.store.pipe(
+      select('shoppingListSlice')
+    ); // ! will give complete slice of state
     // global slice of state which was set in AppModule -> StoreModule.forRoot
   }
 
@@ -44,7 +46,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   onEditItem(index: number) {
     // this.shoppingListService.startedEditingShoppingItem_CustomSubject.next(index);
     // ! instead of using subjects next using dispatch of NgRx
-    this.store.dispatch(new ShoppingListActions.StartEditIngredientAction(index));
+    this.store.dispatch(new shoppingListActions.StartEditIngredientAction(index));
   }
 }
 

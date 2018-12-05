@@ -24,9 +24,12 @@ export class RecipeStorageBackendService {
 
     authUrlWithoutQueryParams = 'https://ng-recipe-book-4712d.firebaseio.com/recipes.json';
 
+
+
+
     // Both POST & PUT (bcoz- firebase server is smart enough to create new record if sending
     // data for first time, update exisiting record if sending exisitng data)
-    storeRecipe2(): Observable<void | Recipe[]> {
+   /*  storeRecipe2(): Observable<void | Recipe[]> {
 
         const currentTokenValue = this.authService.getToken();
 
@@ -55,10 +58,13 @@ export class RecipeStorageBackendService {
                 })
             );
 
-    }
+    } */
 
+
+
+// ! ----------------------------------------------------------------------------------------------
     // Using parmas rather than hardcoding as in the above code
-    storeRecipe4(): Observable<void | Recipe[]> {
+   /*  storeRecipe4(): Observable<void | Recipe[]> {
 
         const currentTokenValue = this.authService.getToken();
 
@@ -87,10 +93,12 @@ export class RecipeStorageBackendService {
                 })
             );
 
-    }
+    } */
+
+
     // ! ----------------------------------------------------------------------------------------------
     // ! Progress Event (showing progress bar when making backend call) & making http request as generic
-    storeRecipe3() {
+   /*  storeRecipe3() {
 
         const currentTokenValue = this.authService.getToken();
 
@@ -105,12 +113,15 @@ export class RecipeStorageBackendService {
 
         return this.httpClient.request(reqVal);
 
-    }
+    } */
+
+
+
     // ! ----------------------------------------------------------------------------------------------
     // !Using Interceptors and removing the auth query params, as it is set in auth.interceptor.ts
     storeRecipe() {
 
-        const currentTokenValue = this.authService.getToken();
+        // const currentTokenValue = this.authService.getToken();
 
         const payload: Recipe[] = this.recipeService.getRecipe();
 
@@ -123,23 +134,27 @@ export class RecipeStorageBackendService {
         return this.httpClient.request(reqVal);
 
     }
+
+
+
+
     // ! ----------------------------------------------------------------------------------------------
-
-
-
     // GETALL
     getAllRecipe(): Observable<void> {
         // sending the gellAll http request will fail bcoz we have changed the firebase db rule i.e-
         // request which has token value can only perform read and write on the firebase db
         // !getting the token from firebase sdk and then sending the token in the header of gellAll http request
-        const currentTokenValue = this.authService.getToken();
+
+        // const currentTokenValue = this.authService.getToken(); // !instead os settign token , we are
+        // !setting the token value in the HTTP Interceptor using NgRX
 
 
         // .get<Recipe[]> -> Recipes[] is the return data type we expect from this GET Http request, this is called -typed request
         // ! 2nd optional argument we can pass is js object,
         // ! observe:- data/value returned for this HTTP Call which can be 'headers', 'body', 'response'
         // ! responseType:- data-type of returned response for this HTTP call which can be 'json', text, blob, 'arraybuffer'
-        return this.httpClient.get<Recipe[]>(this.authUrl + currentTokenValue, { observe: 'body', responseType: 'json' })
+        // return this.httpClient.get<Recipe[]>(this.authUrl + currentTokenValue, { observe: 'body', responseType: 'json' })
+        return this.httpClient.get<Recipe[]>(this.url , { observe: 'body', responseType: 'json' })
             .pipe(
                 map((responseData) => {
                     const recipesArray: Recipe[] = responseData;
@@ -151,7 +166,8 @@ export class RecipeStorageBackendService {
                         }
                     }
 
-                    this.recipeService.setRecipesArray(recipesArray); // !updating the recipeArray which is present in recipeService class
+                    this.recipeService.setRecipesArray(recipesArray);
+                    // !updating the recipeArray which is present in recipeService class
                     console.log(recipesArray);
                     // return responseData;
                 }),
