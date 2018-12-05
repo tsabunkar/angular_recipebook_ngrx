@@ -16,16 +16,8 @@ export class AuthService {
   ) { }
 
   // ! below signup() method code has async code/operations, which is cannot be executed in Reducers func in NgRx
-  /*  singup(email: string, password: string) {
-     console.log('calling from auth service for signup method');
-     const promiseObj = firebase.auth().createUserWithEmailAndPassword(email, password); // this will create a
-     // new user with email and password in firebase db
-     promiseObj.catch(
-       err => console.log(err)
-     );
 
-   } */
-  singup(email: string, password: string) {
+  /* singup(email: string, password: string) {
     const promiseObj = firebase.auth().createUserWithEmailAndPassword(email, password); // this will create a
     // new user with email and password in firebase db
     promiseObj.then(
@@ -41,36 +33,12 @@ export class AuthService {
 
 
 
-
-  /*   signin(email: string, password: string) {
-      console.log('calling from auth service for signin method');
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(
-          resp => {
-            console.log(resp);
-            firebase.auth().currentUser.getIdToken()
-              .then(
-                (token: string) => this.currentTokenValue = token
-              );
-            this.router.navigate(['/']); // redirecting the user form signin to home page i.e-
-            // from 'http://localhost:4200/signin'  to -> 'http://localhost:4200'
-          }
-        )
-        .catch(err => console.log(err));
-    } */
   signin(email: string, password: string) {
     console.log('calling from auth service for signin method');
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(
         resp => {
           this.store.dispatch(new authenticationActions.SigninAuthAction());
-          /* firebase.auth().currentUser.getIdToken()
-            .then(
-              // (token: string) => this.currentTokenValue = token
-              (token: string) => {
-                this.store.dispatch(new authenticationActions.SetTokenAuthAction(token));
-              }
-            ); */
           this.getTokenValue();
           this.router.navigate(['/']); // redirecting the user form signin to home page i.e-
           // from 'http://localhost:4200/signin'  to -> 'http://localhost:4200'
@@ -78,31 +46,6 @@ export class AuthService {
       )
       .catch(err => console.log(err));
   }
-
- /*  getToken() {
-    // return firebase.auth().currentUser.getIdToken()
-
-    // THis will give us the token asynchronously (which simply
-    // means if the token is expried then this firebase sdk will reach out to backend firebase and get us
-    // the new token value asynchronously)
-
-    firebase.auth().currentUser.getIdToken()
-      .then(
-        (token: string) => this.currentTokenValue = token
-      );
-    return this.currentTokenValue;
-  } */
-
-
-  /*   isUserAuthenticated() {
-      return this.currentTokenValue != null; // if token has value (it is not null) then user is authenticated
-    } */
-
-  /*
-    logOut() {
-      firebase.auth().signOut();
-      this.currentTokenValue = null;
-    } */
 
 
   logOut() {
@@ -118,5 +61,5 @@ export class AuthService {
           this.store.dispatch(new authenticationActions.SetTokenAuthAction(token));
         }
       );
-  }
+  } */
 }

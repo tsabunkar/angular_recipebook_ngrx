@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
+import * as authenticationActions from '../../auth/store/auth.actions';
 
 
 
@@ -20,7 +21,7 @@ export class HeaderComponent implements OnInit {
     authState$: Observable<boolean>;
 
     constructor(private recipeStorageBackendService: RecipeStorageBackendService,
-        private authService: AuthService,
+        // private authService: AuthService,
         private store: Store<fromAuth.AuthState>
     ) { }
 
@@ -46,13 +47,16 @@ export class HeaderComponent implements OnInit {
             .subscribe();
     }
 
+    /*  onLogout() {
+         this.authService.logOut();
+     } */
     onLogout() {
-        this.authService.logOut();
+        this.store.dispatch(new authenticationActions.LogoutAuthAction());
     }
 
- /*    isUserAuthenticated() { // this is to resolve --aot errors
-        return this.authService.isUserAuthenticated();
-    }
- */
+    /*    isUserAuthenticated() { // this is to resolve --aot errors
+           return this.authService.isUserAuthenticated();
+       }
+    */
 
 }

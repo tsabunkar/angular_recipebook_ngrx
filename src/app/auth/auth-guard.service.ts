@@ -12,7 +12,7 @@ import * as fromAuthReducer from './store/auth.reducers';
 export class AuthGuard implements CanActivate {
 
     constructor(
-        private authService: AuthService,
+        // private authService: AuthService,
         private store: Store<fromAppReducer.AppState>
     ) { }
 
