@@ -9,7 +9,7 @@ import * as fromAuthReducer from '../auth/store/auth.reducers';
 
 // !Application wide State
 export interface AppState {
-    // shoppingList: fromShoppingList.ApplicationState;
+    // shoppingList: fromShoppingList.ShoppingListFeatureModuleState;
     shoppingListSlice: fromShoppingListReducer.ShoppingListState;
     authSlice: fromAuthReducer.AuthState;
 }

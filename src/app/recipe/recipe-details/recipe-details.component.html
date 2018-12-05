@@ -6,18 +6,21 @@
 <div class="row">
   <div class="col-xs-12">
     <h1>Recipe Name :</h1>
-    <h3>{{recipeObj?.name}}</h3>
+    <!-- <h3>{{recipeObj?.name}}</h3> -->
+    <h3>{{ (recipeState$ | async).recipesArraySliceOfState[recipeid].name }}</h3>
   </div>
 </div>
 
 <div class="row">
   <div class="col-xs-12">
-    Description : {{recipeObj?.description}}
+    <!-- Description : {{recipeObj?.description}} -->
+    Description : {{(recipeState$ | async).recipesArraySliceOfState[recipeid].description}}
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
-    View : <img [src]="recipeObj?.imagePath" alt="" height="100px" width="100px">
+    <!-- View : <img [src]="recipeObj?.imagePath" alt="" height="100px" width="100px"> -->
+    View : <img [src]="(recipeState$ | async).recipesArraySliceOfState[recipeid].imagePath" alt="" height="100px" width="100px">
   </div>
 </div>
 <br>
@@ -45,7 +48,8 @@
   <div class="col-xs-12">
     Ingredients list used for this recipe :
     <ul class="list-group">
-      <li class="list-group-item" *ngFor="let item of recipeObj?.ingredients">
+      <!-- <li class="list-group-item" *ngFor="let item of recipeObj?.ingredients"> -->
+      <li class="list-group-item" *ngFor="let item of (recipeState$ | async).recipesArraySliceOfState[recipeid].ingredients">
         {{item.name}} - {{item.amount}}
       </li>
     </ul>

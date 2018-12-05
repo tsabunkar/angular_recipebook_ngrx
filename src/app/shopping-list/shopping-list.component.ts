@@ -21,7 +21,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   constructor(
     // private shoppingListService: ShoppingListService,
-    // private store: Store<fromShoppingListReducer.ApplicationState>
+    // private store: Store<fromShoppingListReducer.ShoppingListFeatureModuleState>
     private store: Store<fromAppReducer.AppState>
   ) { }
 

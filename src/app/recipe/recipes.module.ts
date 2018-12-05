@@ -33,7 +33,7 @@ import { recipeReducer } from './store/recipe.reducers';
         ReactiveFormsModule,
         RecipesRoutingModule,
         SharedModule,
-        StoreModule.forFeature('recipesSlice', recipeReducer) // !Register Store (Lazy module)
+        StoreModule.forFeature('recipeSlice', recipeReducer) // !Register Store (Lazy module)
 
     ],
     exports: [

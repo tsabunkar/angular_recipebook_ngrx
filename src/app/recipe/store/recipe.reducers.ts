@@ -1,8 +1,9 @@
 import { Recipe } from '../models/recipe.model';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import * as recipeActions from './recipe.actions';
+import * as fromAppReducer from '../../store/app.reducers';
 
-export interface RecipesFeatureLazyModuleState {
+export interface RecipesFeatureLazyModuleState extends fromAppReducer.AppState {
     recipesSliceOfState: RecipeState;
 }
 
@@ -20,6 +21,7 @@ const initalState: RecipeState = {
                 new Ingredient('Sabunkar', 2)
             ])
     ]
+    // recipesArraySliceOfState: []
 };
 
 export function recipeReducer(state = initalState, action: recipeActions.RecipesActions)

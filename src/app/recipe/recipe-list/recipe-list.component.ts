@@ -2,7 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angu
 import { Recipe } from '../models/recipe.model';
 import { RecipeService } from '../recipe-service/recipe.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import * as fromRecipeReducer from '../store/recipe.reducers';
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,38 +13,28 @@ import { Subscription } from 'rxjs';
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
 
-  subscription: Subscription;
-  recipesArray: Recipe[] = []; // Array of Recipe Object
+  // subscription: Subscription;
+  // recipesArray: Recipe[] = []; // Array of Recipe Object
+  recipesArrayState$: Observable<fromRecipeReducer.RecipeState>;
 
-  constructor(private recipeService: RecipeService, private router: Router
-    , private activatedRoute: ActivatedRoute) { }
+  constructor(private recipeService: RecipeService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private store: Store<fromRecipeReducer.RecipesFeatureLazyModuleState>
+  ) { }
 
   ngOnInit() {
     // !if new recipeitem is added or updated to reflect in the DOM we r emitting an event and
     // !subscribing it here
-    this.subscription = this.recipeService.recipeChangedDOM_customEvent // since custom event so we need to unsubscribe it
+    /* this.subscription = this.recipeService.recipeChangedDOM_customEvent // since custom event so we need to unsubscribe it
       .subscribe((updatedRecipesArray: Recipe[]) => {
         this.recipesArray = updatedRecipesArray;
       });
-    this.recipesArray = this.recipeService.getRecipe();
+    this.recipesArray = this.recipeService.getRecipe(); */
+
+    this.recipesArrayState$ = this.store.pipe(select('recipeSlice')); // recipeSlice -> recipe.module.ts
 
   }
-  /*
-    recipeObj: Recipe = new Recipe('Pasta', 'Pasta dish is made of sunfest pasta', 'https://images.media-allrecipes.com/images/56589.png')
-    recipeObj1: Recipe = new Recipe('Gobi Manchuri ',
-     'Gobi Manchuri is an indian cum chinse dish',
-     'http://s3.amazonaws.com/appforest_uf/f1486610188974x481748790945857800/Semi_Gravy_gobi__manchurian.jpg')
-   */
-
-
-  /*
-  @Output() selectedRecipeForDetailDescriptionFrmC2P_customEvent = new EventEmitter<Recipe>();
-
-   onClickOfSingleRecipeItem(singleRecipeElement: Recipe) {
-   // console.log(singleRecipeElement);
-   this.selectedRecipeForDetailDescriptionFrmC2P_customEvent.emit(singleRecipeElement);
-
- } */
 
 
   onNewRecipe() {
@@ -50,6 +42,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

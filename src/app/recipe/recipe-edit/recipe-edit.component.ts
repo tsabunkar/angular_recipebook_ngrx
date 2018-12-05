@@ -4,6 +4,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe-service/recipe.service';
 import { Recipe } from '../models/recipe.model';
+import * as recipeActions from '../store/recipe.actions';
+import * as fromRecipeReducer from '../store/recipe.reducers';
+import { Store, select } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -16,7 +20,12 @@ export class RecipeEditComponent implements OnInit {
   idToBeEdited: number;
   isInEditMode = false; // initially assuming we creating a new recipe (i.e- not in the edit mode)
 
-  constructor(private activatedRoute: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private recipeService: RecipeService,
+    private router: Router,
+    private store: Store<fromRecipeReducer.RecipesFeatureLazyModuleState>
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((param: Params) => {
@@ -43,8 +52,7 @@ export class RecipeEditComponent implements OnInit {
     const recipeIngredientArray = new FormArray([]); // intinally formArray will be empty an array
 
 
-    if (this.isInEditMode) { // if in edit mode then fetching the value from service  (Edit Recipe)
-      console.log(this.idToBeEdited);
+    /* if (this.isInEditMode) { // if in edit mode then fetching the value from service  (Edit Recipe)
       const recipeObj = this.recipeService.getRecipeDetailsFromId(this.idToBeEdited);
       recipeName = recipeObj.name;
       imageUrl = recipeObj.imagePath;
@@ -61,7 +69,38 @@ export class RecipeEditComponent implements OnInit {
           );
         }
       }
+    } // end of if */
+
+    // !using NgRx for getting recipeObj, rather than using service i.e- recipeService as above
+    if (this.isInEditMode) { // if in edit mode then fetching the value from service  (Edit Recipe)
+
+      this.store.pipe(
+        select('recipeSlice'),
+        take(1)
+      ).subscribe((recipeStateVal: fromRecipeReducer.RecipeState) => {
+        const recipeObj = recipeStateVal.recipesArraySliceOfState[this.idToBeEdited];
+
+        recipeName = recipeObj.name;
+        imageUrl = recipeObj.imagePath;
+        recipeDescription = recipeObj.description;
+        if (recipeObj['ingredients']) { // recipeObj.ingredients is an array which has list of Ingredients Object
+          for (const ingredientItem of recipeObj.ingredients) {
+            recipeIngredientArray.push(new FormGroup({
+              'name': new FormControl(ingredientItem.name, Validators.required),
+              'amount': new FormControl(ingredientItem.amount, [
+                Validators.required,
+                Validators.pattern(/[1-9]+[0-9]*$/)
+              ])
+            })
+            );
+          }
+        }
+
+      });
+
     } // end of if
+
+
 
     // if not in editmode then where r adding empty formControl values  (Add New Recipe)
     this.recipeFormGroup = new FormGroup({
@@ -75,11 +114,6 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmitForm() {
 
-    console.log(this.recipeFormGroup);
-    console.log(this.recipeFormGroup.value['nameControl']);
-    console.log(this.recipeFormGroup.value);
-    console.log(this.recipeFormGroup.value['recipeIngredientArrayControl']);
-
     const newRecipeObject = new Recipe(
       this.recipeFormGroup.value['nameControl'],
       this.recipeFormGroup.value['descriptionControl'],
@@ -87,9 +121,19 @@ export class RecipeEditComponent implements OnInit {
       this.recipeFormGroup.value['recipeIngredientArrayControl'],
     );
     if (this.isInEditMode) {
-      this.recipeService.updateRecipeOnFormSubmission(this.idToBeEdited, newRecipeObject);
+      // this.recipeService.updateRecipeOnFormSubmission(this.idToBeEdited, newRecipeObject);
+      // !using NgRx
+      const payload = {
+        indexProp: this.idToBeEdited,
+        updatedRecipeProp: newRecipeObject
+      };
+      this.store.dispatch(new recipeActions.UpdateRecipeAction(payload));
     } else {
-      this.recipeService.addNewRecipeOnFormSubmission(newRecipeObject);
+      // this.recipeService.addNewRecipeOnFormSubmission(newRecipeObject);
+      // !using NgRx
+      this.store.dispatch(new recipeActions.AddRecipeAction(newRecipeObject));
+
+
       // ! Instead of injecting the value in C.I and then passing the object to save or we can
       // !directly save the form value, (bcoz- this.recipeFormGroup.value Object is same our Recipe Model)
       // ! but for me it is not working bcoz - I have given different property names in model and form value

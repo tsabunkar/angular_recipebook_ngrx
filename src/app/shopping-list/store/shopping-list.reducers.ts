@@ -3,7 +3,7 @@ import { Ingredient } from '../../shared/models/ingredient.model';
 import * as shoppingListActions from './shopping-list.actions';
 
 
-export interface ApplicationState {
+export interface ShoppingListFeatureModuleState { // which is eagerly loaded
     shoppingListSliceOfState: ShoppingListState;
 }
 export interface ShoppingListState {
