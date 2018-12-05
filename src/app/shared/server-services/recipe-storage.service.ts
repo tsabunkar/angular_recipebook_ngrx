@@ -29,91 +29,91 @@ export class RecipeStorageBackendService {
 
     // Both POST & PUT (bcoz- firebase server is smart enough to create new record if sending
     // data for first time, update exisiting record if sending exisitng data)
-   /*  storeRecipe2(): Observable<void | Recipe[]> {
+    /*  storeRecipe2(): Observable<void | Recipe[]> {
 
-        const currentTokenValue = this.authService.getToken();
+         const currentTokenValue = this.authService.getToken();
 
-        const payload: Recipe[] = this.recipeService.getRecipe();
+         const payload: Recipe[] = this.recipeService.getRecipe();
 
-        // put u can perform both post(create new) and put(update existing data)
-        return this.httpClient.put<Recipe[]>(this.authUrl + currentTokenValue, payload, { // !HardCodingQueryParam
-            observe: 'body',
-            // headers : new HttpHeaders().set('Authorization', 'auth token').append('Auth2', 'add another header value')
-            // ? way to set headers in HttpClient for put http request call
+         // put u can perform both post(create new) and put(update existing data)
+         return this.httpClient.put<Recipe[]>(this.authUrl + currentTokenValue, payload, { // !HardCodingQueryParam
+             observe: 'body',
+             // headers : new HttpHeaders().set('Authorization', 'auth token').append('Auth2', 'add another header value')
+             // ? way to set headers in HttpClient for put http request call
 
-        })
-            // !we r specifiying that put request must
-            // !return me <Recipe[]> data type, Rather than specifiying in the map() methods argument
-            .pipe(
-                map((responseData) => {
-                    // * map((responseData : Recipe[]) -> no need to specifiy the data type bcoz already specified at-> put<Recipe[]>
-                    console.log(responseData);
-                    return responseData;
-                    // !This return -bcoz-> while subscribe(ing) this Observable type
-                    // !I specifically need Recipe[] datatype
-                }),
-                catchError(err => {
-                    this.handlerError(err);
-                    throw err;
-                })
-            );
+         })
+             // !we r specifiying that put request must
+             // !return me <Recipe[]> data type, Rather than specifiying in the map() methods argument
+             .pipe(
+                 map((responseData) => {
+                     // * map((responseData : Recipe[]) -> no need to specifiy the data type bcoz already specified at-> put<Recipe[]>
+                     console.log(responseData);
+                     return responseData;
+                     // !This return -bcoz-> while subscribe(ing) this Observable type
+                     // !I specifically need Recipe[] datatype
+                 }),
+                 catchError(err => {
+                     this.handlerError(err);
+                     throw err;
+                 })
+             );
 
-    } */
+     } */
 
 
 
-// ! ----------------------------------------------------------------------------------------------
+    // ! ----------------------------------------------------------------------------------------------
     // Using parmas rather than hardcoding as in the above code
-   /*  storeRecipe4(): Observable<void | Recipe[]> {
+    /*  storeRecipe4(): Observable<void | Recipe[]> {
 
-        const currentTokenValue = this.authService.getToken();
+         const currentTokenValue = this.authService.getToken();
 
-        const payload: Recipe[] = this.recipeService.getRecipe();
+         const payload: Recipe[] = this.recipeService.getRecipe();
 
-        // put u can perform both post(create new) and put(update existing data)
-        return this.httpClient.put<Recipe[]>(this.authUrlWithoutQueryParams, payload, { // ! NotHardCodingQueryParams
-            observe: 'body',
-            // headers : new HttpHeaders().set('Authorization', 'auth token').append('Auth2', 'add another header value')
-            // ? way to set headers in HttpClient for put http request call
-            params: new HttpParams().set('auth', currentTokenValue)  // ! Insteasd of hardcoding the queryParams, we r setting it
-        })
-            // !we r specifiying that put request must
-            // !return me <Recipe[]> data type, Rather than specifiying in the map() methods argument
-            .pipe(
-                map((responseData) => {
-                    // * map((responseData : Recipe[]) -> no need to specifiy the data type bcoz already specified at-> put<Recipe[]>
-                    console.log(responseData);
-                    return responseData;
-                    // !This return -bcoz-> while subscribe(ing) this Observable type
-                    // !I specifically need Recipe[] datatype
-                }),
-                catchError(err => {
-                    this.handlerError(err);
-                    throw err;
-                })
-            );
+         // put u can perform both post(create new) and put(update existing data)
+         return this.httpClient.put<Recipe[]>(this.authUrlWithoutQueryParams, payload, { // ! NotHardCodingQueryParams
+             observe: 'body',
+             // headers : new HttpHeaders().set('Authorization', 'auth token').append('Auth2', 'add another header value')
+             // ? way to set headers in HttpClient for put http request call
+             params: new HttpParams().set('auth', currentTokenValue)  // ! Insteasd of hardcoding the queryParams, we r setting it
+         })
+             // !we r specifiying that put request must
+             // !return me <Recipe[]> data type, Rather than specifiying in the map() methods argument
+             .pipe(
+                 map((responseData) => {
+                     // * map((responseData : Recipe[]) -> no need to specifiy the data type bcoz already specified at-> put<Recipe[]>
+                     console.log(responseData);
+                     return responseData;
+                     // !This return -bcoz-> while subscribe(ing) this Observable type
+                     // !I specifically need Recipe[] datatype
+                 }),
+                 catchError(err => {
+                     this.handlerError(err);
+                     throw err;
+                 })
+             );
 
-    } */
+     } */
 
 
     // ! ----------------------------------------------------------------------------------------------
     // ! Progress Event (showing progress bar when making backend call) & making http request as generic
-   /*  storeRecipe3() {
+    /*  storeRecipe3() {
 
-        const currentTokenValue = this.authService.getToken();
+         const currentTokenValue = this.authService.getToken();
 
-        const payload: Recipe[] = this.recipeService.getRecipe();
+         const payload: Recipe[] = this.recipeService.getRecipe();
 
-        const reqVal = new HttpRequest<Recipe[]>('PUT', this.authUrlWithoutQueryParams, payload,
-            {
-                params: new HttpParams().set('auth', currentTokenValue),
-                reportProgress: true // report Progress -> gives the feedback about the progress of this http request and response
-                // useful while uploading and downloading
-            });
+         const reqVal = new HttpRequest<Recipe[]>('PUT', this.authUrlWithoutQueryParams, payload,
+             {
+                 params: new HttpParams().set('auth', currentTokenValue),
+                 reportProgress: true // report Progress -> gives the feedback about the progress of this http request and response
+                 // useful while uploading and downloading
+             });
 
-        return this.httpClient.request(reqVal);
+         return this.httpClient.request(reqVal);
 
-    } */
+     } */
 
 
 
@@ -154,22 +154,26 @@ export class RecipeStorageBackendService {
         // ! observe:- data/value returned for this HTTP Call which can be 'headers', 'body', 'response'
         // ! responseType:- data-type of returned response for this HTTP call which can be 'json', text, blob, 'arraybuffer'
         // return this.httpClient.get<Recipe[]>(this.authUrl + currentTokenValue, { observe: 'body', responseType: 'json' })
-        return this.httpClient.get<Recipe[]>(this.url , { observe: 'body', responseType: 'json' })
+        return this.httpClient.get<Recipe[]>(this.url, { observe: 'body', responseType: 'json' })
             .pipe(
                 map((responseData) => {
-                    const recipesArray: Recipe[] = responseData;
-                    for (const recipeObj of recipesArray) {
-                        if (!recipeObj['ingredients']) { // check if each recipe object has ingredients property
-                            // (if not then add this property with empty array)
-                            console.log(recipeObj);
-                            recipeObj['ingredients'] = [];
+                    let recipesArray: Recipe[] = responseData;
+                    if (recipesArray !== null) {
+                        for (const recipeObj of recipesArray) {
+                            if (!recipeObj['ingredients']) { // check if each recipe object has ingredients property
+                                // (if not then add this property with empty array)
+                                console.log(recipeObj);
+                                recipeObj['ingredients'] = [];
+                            }
                         }
-                    }
 
-                    this.recipeService.setRecipesArray(recipesArray);
-                    // !updating the recipeArray which is present in recipeService class
-                    console.log(recipesArray);
-                    // return responseData;
+                        this.recipeService.setRecipesArray(recipesArray);
+                        // !updating the recipeArray which is present in recipeService class
+                        console.log(recipesArray);
+                        // return responseData;
+                    } else {
+                        recipesArray = [];
+                    }
                 }),
                 catchError(err => {
                     this.handlerError(err);

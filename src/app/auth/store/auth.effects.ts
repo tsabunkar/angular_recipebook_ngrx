@@ -69,5 +69,12 @@ export class AuthEffects {
         }),
         // tap(() => this.router.navigate(['/']))
     );
+
+
+    @Effect({ dispatch: false }) // [When our below code does not dispatch actions]
+    authLogoutSideEffect = this.actions$.pipe(
+        ofType(authActions.AuthActionTypes.LOGOUT),
+        tap(() => this.router.navigate(['/']))
+    );
 }
 

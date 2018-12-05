@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angul
 import { AuthService } from './auth-service/auth-service.service';
 import { Store, select } from '@ngrx/store';
 
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import * as fromAppReducer from '../store/app.reducers';
 import * as fromAuthReducer from './store/auth.reducers';
@@ -20,6 +20,7 @@ export class AuthGuard implements CanActivate {
         // return this.authService.isUserAuthenticated();
         return this.store.pipe(
             select('authSlice'),
+            take(1), // only take request or select one element/slice from authSlice
             map((authState: fromAuthReducer.AuthState) => {
                 return authState.isAuthenticatedSliceOfState;
             })
