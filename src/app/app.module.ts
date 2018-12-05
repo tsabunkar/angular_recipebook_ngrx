@@ -14,6 +14,8 @@ import { StoreModule } from '@ngrx/store';
 import { shoppingListReducer } from './shopping-list/store/shopping-list.reducers';
 import { authReducer } from './auth/store/auth.reducers';
 import { applicationReducers } from './store/app.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/store/auth.effects';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { applicationReducers } from './store/app.reducers';
     // * registring the Application store, it is used for eagerly loading module
     // StoreModule.forRoot({ shoppingListSlice: shoppingListReducer }), // global slice of state
     // !above code is moved to app.reducers.ts
-    StoreModule.forRoot(applicationReducers)
+    StoreModule.forRoot(applicationReducers),
+
+    EffectsModule.forRoot([AuthEffects]), // !Registering NgRx Effects
 
   ],
   providers: [

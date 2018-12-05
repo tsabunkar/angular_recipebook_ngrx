@@ -21,8 +21,9 @@ export class AuthInterceptor implements HttpInterceptor {
         return this.store.pipe(
             select('authSlice'),
             take(1), // take returns an Observable that emits only the first count values emitted by the source Observable
+            // ie- only get this observables onces, bcoz we r this.store.pipe() will be executed each time when it recieves an events
             switchMap((authState: fromAuthReducer.AuthState) => {
-                console.log('authState.tokenSliceOfState', authState.tokenSliceOfState);
+                // console.log('authState.tokenSliceOfState', authState.tokenSliceOfState);
                 const copiedReq = req.clone({
                     params: req.params.set('auth', authState.tokenSliceOfState) // !set the queryParams
                 });
