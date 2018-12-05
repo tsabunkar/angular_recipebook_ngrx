@@ -10,6 +10,8 @@ import { DropDownCutomDirective } from '../shared/custom-directives/dropdown.dir
 import { CommonModule } from '@angular/common';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { recipeReducer } from './store/recipe.reducers';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { SharedModule } from '../shared/shared.module';
         // and CommonModule in the feature module
         ReactiveFormsModule,
         RecipesRoutingModule,
-        SharedModule
+        SharedModule,
+        StoreModule.forFeature('recipesSlice', recipeReducer) // !Register Store (Lazy module)
+
     ],
     exports: [
     ],

@@ -10,7 +10,8 @@ const initalState: AuthState = {
     isAuthenticatedSliceOfState: false // by default user should not be authenticated at starting of the appn
 };
 
-export function authReducer(state = initalState, action: fromAuthenticationActions.AuthenticationActions): AuthState {
+export function authReducer(state = initalState, action: fromAuthenticationActions.AuthenticationActions)
+    : AuthState {
 
     switch (action.type) {
 

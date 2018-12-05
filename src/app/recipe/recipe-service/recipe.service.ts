@@ -11,7 +11,7 @@ export class RecipeService {
 
     constructor(
         // private shoppingListService: ShoppingListService,
-        private store: Store<{ shoppingListSlice: { ingredientsArraySliceOfState: Ingredient[] } }>
+        // private store: Store<{ shoppingListSlice: { ingredientsArraySliceOfState: Ingredient[] } }>
     ) { }
 
     recipeChangedDOM_customEvent = new Subject<Recipe[]>();
