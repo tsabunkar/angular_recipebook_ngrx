@@ -12,7 +12,7 @@ export interface RecipeState {
 }
 
 const initalState: RecipeState = {
-    recipesArraySliceOfState: [
+    /* recipesArraySliceOfState: [
         new Recipe('Default Recipe',
             'Default Decription',
             'https://avatars0.githubusercontent.com/u/24843900?s=460&v=4',
@@ -20,8 +20,8 @@ const initalState: RecipeState = {
                 new Ingredient('Tejas', 1),
                 new Ingredient('Sabunkar', 2)
             ])
-    ]
-    // recipesArraySliceOfState: []
+    ] */
+    recipesArraySliceOfState: []
 };
 
 export function recipeReducer(state = initalState, action: recipeActions.RecipesActions)

@@ -5,7 +5,7 @@ import { Subscription, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import * as shoppingListActions from './store/shopping-list.actions';
 import * as fromAppReducer from '../store/app.reducers';
-
+import * as shoppingListReducer from './store/shopping-list.reducers';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
@@ -17,7 +17,8 @@ import * as fromAppReducer from '../store/app.reducers';
 export class ShoppingListComponent implements OnInit, OnDestroy {
 
   // * making the ingredientsArrayState$ as Observable whose type is Ingredient[]
-  ingredientsArrayState$: Observable<{ ingredientsArraySliceOfState: Ingredient[] }>;
+  // ingredientsArrayState$: Observable<{ ingredientsArraySliceOfState: Ingredient[] }>;
+  ingredientsArrayState$: Observable<shoppingListReducer.ShoppingListState>;
 
   constructor(
     // private shoppingListService: ShoppingListService,

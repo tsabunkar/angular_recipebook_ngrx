@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as authenticationActions from '../../auth/store/auth.actions';
-
+import * as recipeActions from '../../recipe/store/recipe.actions';
 
 
 @Component({
@@ -18,11 +18,12 @@ import * as authenticationActions from '../../auth/store/auth.actions';
 
 export class HeaderComponent implements OnInit {
 
-    authState$: Observable<boolean>;
+    authState$: Observable<fromAuth.AuthState>;
 
     constructor(private recipeStorageBackendService: RecipeStorageBackendService,
         // private authService: AuthService,
-        private store: Store<fromAuth.AuthState>
+        // private store: Store<fromAuth.AuthState>
+        private store: Store<fromApp.AppState>
     ) { }
 
     ngOnInit() {
@@ -31,7 +32,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onSaveData() {
-        this.recipeStorageBackendService.storeRecipe()
+        /* this.recipeStorageBackendService.storeRecipe()
             .subscribe(
                 (respData) => {
 
@@ -39,12 +40,14 @@ export class HeaderComponent implements OnInit {
                 (err) => {
                     console.log(err);
                 }
-            );
+            ); */
+        this.store.dispatch(new recipeActions.SetAllStoreAllRecipesAction());
     }
 
     onFetchData() {
-        this.recipeStorageBackendService.getAllRecipe()
-            .subscribe();
+        /* this.recipeStorageBackendService.getAllRecipe()
+            .subscribe(); */
+        this.store.dispatch(new recipeActions.GetAllFetchAllRecipeAction());
     }
 
     /*  onLogout() {

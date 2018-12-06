@@ -15,6 +15,8 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   // subscription: Subscription;
   // recipesArray: Recipe[] = []; // Array of Recipe Object
+
+
   recipesArrayState$: Observable<fromRecipeReducer.RecipeState>;
 
   constructor(private recipeService: RecipeService,
@@ -26,7 +28,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // !if new recipeitem is added or updated to reflect in the DOM we r emitting an event and
     // !subscribing it here
-    /* this.subscription = this.recipeService.recipeChangedDOM_customEvent // since custom event so we need to unsubscribe it
+   /*  this.subscription = this.recipeService.recipeChangedDOM_customEvent // since custom event so we need to unsubscribe it
       .subscribe((updatedRecipesArray: Recipe[]) => {
         this.recipesArray = updatedRecipesArray;
       });

@@ -6,7 +6,8 @@ export enum RecipeActionTypes {
     ADD_RECIPE = '[Recipe] adding new recipe',
     UPDATE_RECIPE = '[Recipe] update the existing recipe',
     DELETE_RECIPE = '[Recipe] delete a recipe',
-
+    GETALL_FETCHALL_RECIPES = '[Recipe] fetch all/ Get All recipes from backend server to frontend',
+    SETALL_STOREALL_RECIPES = '[Recipe] Set all/Store all recipes Array from Frontend to backend'
 }
 
 export class SetRecipeAction implements Action {
@@ -29,12 +30,21 @@ export class DeleteRecipeAction implements Action {
 
     constructor(public payload: number) { }
 }
+export class GetAllFetchAllRecipeAction implements Action {
+    readonly type = RecipeActionTypes.GETALL_FETCHALL_RECIPES;
+}
+
+export class SetAllStoreAllRecipesAction implements Action {
+    readonly type = RecipeActionTypes.SETALL_STOREALL_RECIPES;
+}
 
 
 
 export type RecipesActions = SetRecipeAction
     | AddRecipeAction
     | UpdateRecipeAction
-    | DeleteRecipeAction;
+    | DeleteRecipeAction
+    | GetAllFetchAllRecipeAction
+    | SetAllStoreAllRecipesAction;
 
 

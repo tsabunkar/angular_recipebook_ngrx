@@ -22,11 +22,16 @@
        Parent Comp (RecipeListComponent) to child comp (RecipeItemComponent) 
       -->
 
-    <!-- <app-recipe-item *ngFor="let singleRecipe of recipesArray; let i=index" [routerLink]="['/recipes', i]" -->
-    <app-recipe-item *ngFor="let singleRecipe of (recipesArrayState$ | async).recipesArraySliceOfState; let i=index" [routerLink]="['/recipes', i]"
-    routerLinkActive="active"
-    [singleRecipeItemPropBindingfromParnt2Child]="singleRecipe"  >
+    <!--  <app-recipe-item *ngFor="let singleRecipe of recipesArray; let i=index" [routerLink]="['/recipes', i]"
+      routerLinkActive="active" [singleRecipeItemPropBindingfromParnt2Child]="singleRecipe">
     </app-recipe-item>
-    <!-- {{((recipesArrayState$ | async) | json)}} -->
+  </div> -->
+
+    <app-recipe-item *ngFor="let singleRecipe of (recipesArrayState$ | async).recipesArraySliceOfState; let i=index"
+      [routerLink]="['/recipes', i]" routerLinkActive="active" [singleRecipeItemPropBindingfromParnt2Child]="singleRecipe">
+    </app-recipe-item>
+    {{ ((recipesArrayState$ | async) | json) }}
+    recipesSliceOfState- {{ ((recipesArrayState$ | async) | json).recipesSliceOfState }}
+    recipesArraySliceOfState- {{ ((recipesArrayState$ | async) | json).recipesArraySliceOfState }}
   </div>
 </div>

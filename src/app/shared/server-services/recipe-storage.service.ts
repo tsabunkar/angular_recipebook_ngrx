@@ -116,8 +116,7 @@ export class RecipeStorageBackendService {
      } */
 
 
-
-    // ! ----------------------------------------------------------------------------------------------
+ // ! ------------------------------------CURRENT CODE----------------------------------------------------------
     // !Using Interceptors and removing the auth query params, as it is set in auth.interceptor.ts
     storeRecipe() {
 
@@ -138,7 +137,7 @@ export class RecipeStorageBackendService {
 
 
 
-    // ! ----------------------------------------------------------------------------------------------
+    // ! ------------------------------------CURRENT CODE----------------------------------------------------------
     // GETALL
     getAllRecipe(): Observable<void> {
         // sending the gellAll http request will fail bcoz we have changed the firebase db rule i.e-
@@ -157,7 +156,7 @@ export class RecipeStorageBackendService {
         return this.httpClient.get<Recipe[]>(this.url, { observe: 'body', responseType: 'json' })
             .pipe(
                 map((responseData) => {
-                    let recipesArray: Recipe[] = responseData;
+                    const recipesArray: Recipe[] = responseData;
                     if (recipesArray !== null) {
                         for (const recipeObj of recipesArray) {
                             if (!recipeObj['ingredients']) { // check if each recipe object has ingredients property
@@ -172,7 +171,7 @@ export class RecipeStorageBackendService {
                         console.log(recipesArray);
                         // return responseData;
                     } else {
-                        recipesArray = [];
+                        this.recipeService.setRecipesArray([]);
                     }
                 }),
                 catchError(err => {
