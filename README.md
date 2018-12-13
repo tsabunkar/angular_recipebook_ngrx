@@ -118,3 +118,10 @@ this can be done by changing the rule i.e-
 *) We can provide same Service in two or more modules
 *) We can imports same module in two or more modules
 So never duplicate the declartions (in muliple modules)
+
+-------------------------------------------------------------------------------------------------------
+TODO :
+Able to create new recipe , add the recipe to shopping list, perform crud operation in shopping list, 
+authentication is working fine,
+ but when logout or reload the page > Signin with existing user > Fetching previous recipe >
+ ABle to to fetch the recipes but 'getting Deleted automatically in Firebase console'
