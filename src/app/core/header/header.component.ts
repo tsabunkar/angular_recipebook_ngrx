@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit {
 
     authState$: Observable<fromAuth.AuthState>;
 
-    constructor(private recipeStorageBackendService: RecipeStorageBackendService,
+    constructor(
+        // private recipeStorageBackendService: RecipeStorageBackendService,
         // private authService: AuthService,
         // private store: Store<fromAuth.AuthState>
         private store: Store<fromApp.AppState>

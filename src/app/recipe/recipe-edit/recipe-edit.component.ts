@@ -22,7 +22,7 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private recipeService: RecipeService,
+    // private recipeService: RecipeService,
     private router: Router,
     private store: Store<fromRecipeReducer.RecipesFeatureLazyModuleState>
   ) { }

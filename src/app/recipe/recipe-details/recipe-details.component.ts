@@ -20,7 +20,7 @@ import * as recipesActions from '../store/recipe.actions';
 export class RecipeDetailsComponent implements OnInit {
 
   constructor(
-    private recipeService: RecipeService,
+    // private recipeService: RecipeService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     // private store: Store<fromShoppingListReducer.ShoppingListFeatureModuleState>
